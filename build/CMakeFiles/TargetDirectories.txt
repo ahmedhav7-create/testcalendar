@@ -1,0 +1,5 @@
+/home/ahmed7/testcalendar/build/CMakeFiles/SmartPrioritizedCalendar.dir
+/home/ahmed7/testcalendar/build/CMakeFiles/edit_cache.dir
+/home/ahmed7/testcalendar/build/CMakeFiles/rebuild_cache.dir
+/home/ahmed7/testcalendar/build/CMakeFiles/SmartPrioritizedCalendar_autogen_timestamp_deps.dir
+/home/ahmed7/testcalendar/build/CMakeFiles/SmartPrioritizedCalendar_autogen.dir
