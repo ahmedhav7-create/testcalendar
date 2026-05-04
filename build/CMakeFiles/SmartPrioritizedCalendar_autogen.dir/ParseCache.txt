@@ -2608,6 +2608,7 @@
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/qglobalstatic.h
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/qhash.h
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/qhashfunctions.h
+ mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/qiodevice.h
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/qiodevicebase.h
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/qiterable.h
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/qiterator.h
@@ -2675,6 +2676,7 @@
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtGui/qpaintdevice.h
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtGui/qpalette.h
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtGui/qpen.h
+ mdp:/usr/include/x86_64-linux-gnu/qt6/QtGui/qpicture.h
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtGui/qpixelformat.h
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtGui/qpixmap.h
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtGui/qpolygon.h
@@ -2690,11 +2692,13 @@
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtGui/qtguiglobal.h
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtGui/qtransform.h
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtGui/qwindowdefs.h
+ mdp:/usr/include/x86_64-linux-gnu/qt6/QtWidgets/QLabel
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtWidgets/QLineEdit
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtWidgets/QMainWindow
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtWidgets/QPushButton
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractbutton.h
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtWidgets/qframe.h
+ mdp:/usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlabel.h
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlineedit.h
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtWidgets/qmainwindow.h
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtWidgets/qpushbutton.h
@@ -2711,7 +2715,6 @@
  mdp:/usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h
  mdp:/usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h
  mdp:/usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h
-/home/ahmed7/testcalendar/syncdialog.cpp
 /home/ahmed7/testcalendar/networkmanager.hpp
  mmc:Q_OBJECT
  mdp:/home/ahmed7/testcalendar/build/SmartPrioritizedCalendar_autogen/moc_predefs.h
@@ -4057,3 +4060,4 @@
  mdp:/usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h
  mdp:/usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h
  mdp:/usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h
+/home/ahmed7/testcalendar/syncdialog.cpp

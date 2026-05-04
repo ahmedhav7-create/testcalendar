@@ -19,7 +19,10 @@ private:
     QLineEdit *emailInput;
     QLineEdit *passwordInput;
     QLineEdit *confirmPasswordInput;
-    QLabel    *emailErrorLabel;   // inline validation feedback
+
+    QLabel *emailErrorLabel;
+    QLabel *strengthLabel;
+    QLabel *matchLabel;
 };
 
 #endif

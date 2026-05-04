@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QLabel>
 
 class LoginWindow : public QMainWindow {
     Q_OBJECT
@@ -18,6 +19,7 @@ private slots:
 private:
     QLineEdit   *usernameInput;
     QLineEdit   *passwordInput;
+    QLabel      *emailError;
     QPushButton *loginBtn;
     QPushButton *signUpBtn;
 };
