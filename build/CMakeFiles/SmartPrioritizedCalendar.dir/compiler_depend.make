@@ -3596,6 +3596,7 @@ CMakeFiles/SmartPrioritizedCalendar.dir/loginwindow.cpp.o: /home/ahmed7/testcale
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QComboBox \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QDateTimeEdit \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QDialog \
+  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QGraphicsDropShadowEffect \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QHBoxLayout \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QLabel \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QLineEdit \
@@ -3617,6 +3618,7 @@ CMakeFiles/SmartPrioritizedCalendar.dir/loginwindow.cpp.o: /home/ahmed7/testcale
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qdatetimeedit.h \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qdialog.h \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qframe.h \
+  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qgraphicseffect.h \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qgridlayout.h \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlabel.h \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlayout.h \
@@ -3965,6 +3967,7 @@ CMakeFiles/SmartPrioritizedCalendar.dir/main.cpp.o: /home/ahmed7/testcalendar/ma
   /usr/include/x86_64-linux-gnu/qt6/QtCore/qglobalstatic.h \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/qhash.h \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/qhashfunctions.h \
+  /usr/include/x86_64-linux-gnu/qt6/QtCore/qiodevice.h \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/qiodevicebase.h \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/qiterable.h \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/qiterator.h \
@@ -4037,6 +4040,7 @@ CMakeFiles/SmartPrioritizedCalendar.dir/main.cpp.o: /home/ahmed7/testcalendar/ma
   /usr/include/x86_64-linux-gnu/qt6/QtGui/qpaintdevice.h \
   /usr/include/x86_64-linux-gnu/qt6/QtGui/qpalette.h \
   /usr/include/x86_64-linux-gnu/qt6/QtGui/qpen.h \
+  /usr/include/x86_64-linux-gnu/qt6/QtGui/qpicture.h \
   /usr/include/x86_64-linux-gnu/qt6/QtGui/qpixelformat.h \
   /usr/include/x86_64-linux-gnu/qt6/QtGui/qpixmap.h \
   /usr/include/x86_64-linux-gnu/qt6/QtGui/qpolygon.h \
@@ -4053,12 +4057,14 @@ CMakeFiles/SmartPrioritizedCalendar.dir/main.cpp.o: /home/ahmed7/testcalendar/ma
   /usr/include/x86_64-linux-gnu/qt6/QtGui/qtransform.h \
   /usr/include/x86_64-linux-gnu/qt6/QtGui/qwindowdefs.h \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QApplication \
+  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QLabel \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QLineEdit \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QMainWindow \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QPushButton \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractbutton.h \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qapplication.h \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qframe.h \
+  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlabel.h \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlineedit.h \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qmainwindow.h \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qpushbutton.h \
@@ -5516,6 +5522,7 @@ CMakeFiles/SmartPrioritizedCalendar.dir/mainwindow.cpp.o: /home/ahmed7/testcalen
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QDateTime \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QFile \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QObject \
+  /usr/include/x86_64-linux-gnu/qt6/QtCore/QRegularExpression \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QString \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QStringList \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QTextStream \
@@ -5651,15 +5658,16 @@ CMakeFiles/SmartPrioritizedCalendar.dir/mainwindow.cpp.o: /home/ahmed7/testcalen
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QDateTimeEdit \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QDialog \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QGridLayout \
-  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QGroupBox \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QHBoxLayout \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QLabel \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QLineEdit \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QListWidget \
+  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QListWidgetItem \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QMainWindow \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QMessageBox \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QProgressBar \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QPushButton \
+  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QStatusBar \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QTabWidget \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QVBoxLayout \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractbutton.h \
@@ -5674,7 +5682,6 @@ CMakeFiles/SmartPrioritizedCalendar.dir/mainwindow.cpp.o: /home/ahmed7/testcalen
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qdialog.h \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qframe.h \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qgridlayout.h \
-  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qgroupbox.h \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlabel.h \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlayout.h \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlayoutitem.h \
@@ -5688,6 +5695,7 @@ CMakeFiles/SmartPrioritizedCalendar.dir/mainwindow.cpp.o: /home/ahmed7/testcalen
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qrubberband.h \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qsizepolicy.h \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qslider.h \
+  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstatusbar.h \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstyle.h \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstyleoption.h \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtabbar.h \
@@ -7665,6 +7673,8 @@ CMakeFiles/SmartPrioritizedCalendar.dir/signupdialog.cpp.o: /home/ahmed7/testcal
   /usr/include/x86_64-linux-gnu/qt6/QtGui/qtransform.h \
   /usr/include/x86_64-linux-gnu/qt6/QtGui/qwindowdefs.h \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QDialog \
+  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QFrame \
+  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QHBoxLayout \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QLabel \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QLineEdit \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QMessageBox \
@@ -8123,6 +8133,8 @@ CMakeFiles/SmartPrioritizedCalendar.dir/syncdialog.cpp.o: /home/ahmed7/testcalen
   /usr/include/x86_64-linux-gnu/qt6/QtGui/qtransform.h \
   /usr/include/x86_64-linux-gnu/qt6/QtGui/qwindowdefs.h \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QDialog \
+  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QFrame \
+  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QHBoxLayout \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QLabel \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QLineEdit \
   /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QMessageBox \
@@ -8158,9 +8170,13 @@ CMakeFiles/SmartPrioritizedCalendar.dir/syncdialog.cpp.o: /home/ahmed7/testcalen
 
 /home/ahmed7/testcalendar/syncdialog.cpp:
 
-/usr/include/x86_64-linux-gnu/qt6/QtWidgets/qgroupbox.h:
+/usr/include/x86_64-linux-gnu/qt6/QtWidgets/QFrame:
 
-/usr/include/x86_64-linux-gnu/qt6/QtWidgets/QGroupBox:
+/usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstatusbar.h:
+
+/usr/include/x86_64-linux-gnu/qt6/QtWidgets/QStatusBar:
+
+/usr/include/x86_64-linux-gnu/qt6/QtWidgets/QListWidgetItem:
 
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QGridLayout:
 
@@ -8825,6 +8841,8 @@ CMakeFiles/SmartPrioritizedCalendar.dir/syncdialog.cpp.o: /home/ahmed7/testcalen
 /usr/include/c++/13/typeinfo:
 
 /usr/include/c++/13/type_traits:
+
+/usr/include/x86_64-linux-gnu/qt6/QtWidgets/qgraphicseffect.h:
 
 /usr/include/c++/13/tr1/special_function_util.h:
 
@@ -9993,6 +10011,8 @@ SmartPrioritizedCalendar_autogen/EWIEGA46WW/moc_loginwindow.cpp:
 /usr/include/boost/predef/compiler/greenhills.h:
 
 /usr/include/boost/predef/compiler/palm.h:
+
+/usr/include/x86_64-linux-gnu/qt6/QtWidgets/QGraphicsDropShadowEffect:
 
 /usr/include/boost/asio/basic_deadline_timer.hpp:
 
