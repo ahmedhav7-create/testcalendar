@@ -380,6 +380,14 @@ CMakeFiles/SmartPrioritizedCalendar.dir/SmartPrioritizedCalendar_autogen/mocs_co
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qdatetimeedit.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qdatetime.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qcalendar.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QTabWidget \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtabwidget.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QLabel \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlabel.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtGui/qpicture.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qiodevice.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QProgressBar \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qprogressbar.h \
  /home/ahmed7/testcalendar/build/SmartPrioritizedCalendar_autogen/EWIEGA46WW/../../../event.hpp \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/QString \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qstring.h \
@@ -1469,9 +1477,5 @@ CMakeFiles/SmartPrioritizedCalendar.dir/SmartPrioritizedCalendar_autogen/mocs_co
  /home/ahmed7/testcalendar/build/SmartPrioritizedCalendar_autogen/EWIEGA46WW/../../../signupdialog.hpp \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QDialog \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qdialog.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QLabel \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlabel.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qpicture.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qiodevice.h \
  /home/ahmed7/testcalendar/build/SmartPrioritizedCalendar_autogen/EWIEGA46WW/moc_syncdialog.cpp \
  /home/ahmed7/testcalendar/build/SmartPrioritizedCalendar_autogen/EWIEGA46WW/../../../syncdialog.hpp

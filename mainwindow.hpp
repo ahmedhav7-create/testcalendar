@@ -7,6 +7,9 @@
 #include <QComboBox>
 #include <QPushButton>
 #include <QDateTimeEdit>
+#include <QTabWidget>
+#include <QLabel>
+#include <QProgressBar>
 #include <vector>
 #include "event.hpp"
 #include "networkmanager.hpp"
@@ -31,18 +34,20 @@ private:
     void loadEventsFromFile();
 
     // ── Widgets ──
+    QTabWidget     *tabWidget;
+    QProgressBar   *syncProgress;      // indeterminate busy bar shown during sync
+    QLabel         *eventCountLabel;   // "N events" shown in the list tab
+
+    // Tab 1 — Events list
     QListWidget    *eventListWidget;
-
-    // Title input (free text, no date needed here — date comes from QDateTimeEdit)
-    QLineEdit      *titleInput;
-
-    // Calendar picker replaces the raw DD/MM/YYYY string input
-    QDateTimeEdit  *dateTimeEdit;
-
-    QComboBox      *categoryCombo;
-    QPushButton    *addBtn;
     QPushButton    *deleteBtn;
     QPushButton    *syncBtn;
+
+    // Tab 2 — Add event form
+    QLineEdit      *titleInput;
+    QDateTimeEdit  *dateTimeEdit;
+    QComboBox      *categoryCombo;
+    QPushButton    *addBtn;
 
     std::vector<Event> m_events;
     NetworkManager    *m_networkManager;
