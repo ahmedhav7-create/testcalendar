@@ -16,7 +16,7 @@
 
 using namespace std;
 
-// ── Colour coding per category ────────────────────────────────────────────────
+// Colour coding per category
 static QColor categoryColor(EventCategory cat) {
     switch (cat) {
         case EventCategory::University: return QColor("#1565C0"); // deep blue
@@ -37,7 +37,7 @@ static QString categoryBadgeStyle(EventCategory cat) {
                    " padding:2px 6px; font-size:11px; font-weight:bold;").arg(bg, fg);
 }
 
-// ── Global stylesheet ─────────────────────────────────────────────────────────
+// Global stylesheet
 static const QString APP_STYLE = R"(
 QMainWindow {
     background: #F5F7FA;
@@ -177,7 +177,6 @@ QProgressBar::chunk {
 }
 )";
 
-// ─────────────────────────────────────────────────────────────────────────────
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     setWindowTitle("Smart Prioritized Calendar");
@@ -186,17 +185,17 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     m_networkManager = new NetworkManager(this);
 
-    // ── Status bar (shows feedback messages at the bottom) ────────────────────
+    // Status bar (shows feedback messages at the bottom)
     statusBar()->showMessage("Ready");
 
-    // ── Central widget ────────────────────────────────────────────────────────
+    // Central widget
     QWidget *central = new QWidget(this);
     setCentralWidget(central);
     QVBoxLayout *outerLayout = new QVBoxLayout(central);
     outerLayout->setContentsMargins(16, 16, 16, 12);
     outerLayout->setSpacing(10);
 
-    // ── Header bar ────────────────────────────────────────────────────────────
+    // Header bar
     QWidget *header = new QWidget(this);
     header->setStyleSheet("background:#1565C0; border-radius:8px;");
     QHBoxLayout *headerLayout = new QHBoxLayout(header);
@@ -224,17 +223,17 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     headerLayout->addWidget(syncBtn);
     outerLayout->addWidget(header);
 
-    // ── Sync progress bar (hidden until sync starts) ──────────────────────────
+    // Sync progress bar (hidden until sync starts)
     syncProgress = new QProgressBar(this);
     syncProgress->setRange(0, 0);      // indeterminate / busy indicator
     syncProgress->setVisible(false);
     syncProgress->setMaximumHeight(4);
     outerLayout->addWidget(syncProgress);
 
-    // ── QTabWidget ────────────────────────────────────────────────────────────
+    // QTabWidget
     tabWidget = new QTabWidget(this);
 
-    // ════════════════════════ Tab 1: Upcoming Events ══════════════════════════
+    // Tab 1: Upcoming Events
     QWidget *eventsTab = new QWidget();
     QVBoxLayout *eventsLayout = new QVBoxLayout(eventsTab);
     eventsLayout->setContentsMargins(12, 12, 12, 12);
@@ -280,7 +279,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     tabWidget->addTab(eventsTab, "📋  Upcoming Events");
 
-    // ════════════════════════ Tab 2: Add Event ════════════════════════════════
+    //Tab 2: Add Event
     QWidget *addTab = new QWidget();
     QVBoxLayout *addOuter = new QVBoxLayout(addTab);
     addOuter->setContentsMargins(20, 20, 20, 20);
@@ -354,7 +353,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     outerLayout->addWidget(tabWidget);
 
-    // ── Connections ───────────────────────────────────────────────────────────
+    // Connections
     connect(addBtn,    &QPushButton::clicked, this, &MainWindow::onAddEventClicked);
     connect(deleteBtn, &QPushButton::clicked, this, &MainWindow::onDeleteEventClicked);
     connect(syncBtn,   &QPushButton::clicked, this, &MainWindow::onSyncClicked);
@@ -371,7 +370,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     refreshEventList();
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
 
 void MainWindow::onAddEventClicked() {
     QString title = titleInput->text().trimmed();
@@ -484,7 +482,7 @@ void MainWindow::onSyncError(const QString& error) {
     QMessageBox::critical(this, "Sync Failed", error);
 }
 
-// ── Refresh list — each item is colour-coded by category ─────────────────────
+// Refresh list — each item is colour-coded by category
 void MainWindow::refreshEventList() {
     eventListWidget->clear();
 

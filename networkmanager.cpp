@@ -19,7 +19,6 @@ static string decodeQuotedPrintable(const string& input) {
         // Soft line break: the = at end of line means "continue on next line"
         if (i+1 < input.size() && input[i+1] == '\n')                   { i += 2; continue; }
         if (i+2 < input.size() && input[i+1]=='\r' && input[i+2]=='\n') { i += 3; continue; }
-        // =XX: two hex digits encoding one byte
         if (i+2 < input.size()
             && isxdigit((unsigned char)input[i+1])
             && isxdigit((unsigned char)input[i+2])) {
@@ -95,7 +94,7 @@ static string extractPlainText(const string& rawMessage) {
 
     while ((pos = body.find(delim, pos)) != string::npos) {
         pos += delim.size();
-        if (pos < body.size() && body[pos] == '-') break; // closing --boundary--
+        if (pos < body.size() && body[pos] == '-') break; // closing boundary
         if (pos < body.size() && body[pos] == '\r') pos++;
         if (pos < body.size() && body[pos] == '\n') pos++;
 

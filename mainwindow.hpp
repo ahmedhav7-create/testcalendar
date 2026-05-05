@@ -33,17 +33,17 @@ private:
     void saveEventsToFile();
     void loadEventsFromFile();
 
-    // ── Widgets ──
+    //  Widgets
     QTabWidget     *tabWidget;
     QProgressBar   *syncProgress;      // indeterminate busy bar shown during sync
     QLabel         *eventCountLabel;   // "N events" shown in the list tab
 
-    // Tab 1 — Events list
+    // Tab 1 - Events list
     QListWidget    *eventListWidget;
     QPushButton    *deleteBtn;
     QPushButton    *syncBtn;
 
-    // Tab 2 — Add event form
+    // Tab 2 - Add event form
     QLineEdit      *titleInput;
     QDateTimeEdit  *dateTimeEdit;
     QComboBox      *categoryCombo;
