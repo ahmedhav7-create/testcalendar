@@ -1,65 +1,42 @@
-# =============================================================
-#  tests/CMakeLists.txt
-#  Smart Prioritized Calendar – HAK Team
-#  Testing configuration: GoogleTest + GoogleMock + CTest
-# =============================================================
-
 cmake_minimum_required(VERSION 3.21)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOMOC ON)
 
-# ── Find required packages ────────────────────────────────────
 find_package(Qt6    REQUIRED COMPONENTS Core)
 find_package(GTest  REQUIRED)
 find_package(Boost  REQUIRED COMPONENTS system)
 find_package(OpenSSL REQUIRED)
 
-# ── Enable CTest ──────────────────────────────────────────────
 enable_testing()
 include(GoogleTest)
 
-# ── EventTest ─────────────────────────────────────────────────
-# Tests: EVT-001 through EVT-021
 add_executable(EventTest
     EventTest.cpp
     ../event.cpp
 )
 target_include_directories(EventTest PRIVATE ..)
-target_link_libraries(EventTest
-    PRIVATE
-        GTest::gtest_main
-        Qt6::Core
-)
+target_link_libraries(EventTest PRIVATE GTest::gtest_main Qt6::Core)
 gtest_discover_tests(EventTest)
 
-# ── AuthManagerTest ───────────────────────────────────────────
-# Tests: AUTH-001 through AUTH-005
 add_executable(AuthManagerTest
     AuthManagerTest.cpp
 )
 target_include_directories(AuthManagerTest PRIVATE ..)
-target_link_libraries(AuthManagerTest
-    PRIVATE
-        GTest::gtest_main
-        Qt6::Core
-)
+target_link_libraries(AuthManagerTest PRIVATE GTest::gtest_main Qt6::Core)
 gtest_discover_tests(AuthManagerTest)
 
-# ── NetworkManagerTest ────────────────────────────────────────
-# Tests: NET-001 through NET-003
 add_executable(NetworkManagerTest
     NetworkManagerTest.cpp
     ../networkmanager.cpp
 )
 target_include_directories(NetworkManagerTest PRIVATE ..)
-target_link_libraries(NetworkManagerTest
-    PRIVATE
-        GTest::gmock_main
-        Qt6::Core
-        Boost::system
-        OpenSSL::SSL
-        OpenSSL::Crypto
+target_link_libraries(NetworkManagerTest PRIVATE
+    GTest::gmock_main
+    Qt6::Core
+    Boost::system
+    OpenSSL::SSL
+    OpenSSL::Crypto
 )
 gtest_discover_tests(NetworkManagerTest)

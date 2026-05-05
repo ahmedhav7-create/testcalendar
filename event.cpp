@@ -30,8 +30,8 @@ QString Event::categoryString() const {
     return "Other";
 }
 
-// Used only when parsing incoming email text (auto-detection).
-// The manual "Add Event" path now uses QDateTimeEdit, so no regex needed there.
+// Scans a plain-text string for a date in DD/MM/YYYY HH:MM format.
+// Used when parsing email bodies received from Gmail sync.
 Event Event::parseEventFromString(const QString& inputText, EventCategory category) {
     std::string text = inputText.toStdString();
     std::regex dateRegex(R"(\b(\d{2})/(\d{2})/(\d{4})\s+(\d{1,2}):(\d{2})\b)");
@@ -41,12 +41,11 @@ Event Event::parseEventFromString(const QString& inputText, EventCategory catego
         QString dateStr = QString::fromStdString(match.str(0));
         QDateTime dt = QDateTime::fromString(dateStr, "dd/MM/yyyy HH:mm");
 
+        // Whatever text remains after removing the date becomes the event title
         QString extractedTitle = inputText;
         extractedTitle = extractedTitle.remove(dateStr).trimmed();
-
-        if (extractedTitle.isEmpty()) {
+        if (extractedTitle.isEmpty())
             extractedTitle = "Untitled Event";
-        }
 
         return Event(extractedTitle, dt, category);
     }
@@ -54,9 +53,9 @@ Event Event::parseEventFromString(const QString& inputText, EventCategory catego
     return Event(inputText, QDateTime(), category);
 }
 
+// Sorts by priority first (lower number = higher priority), then by date
 bool operator<(const Event& e1, const Event& e2) {
-    if (e1.priority() != e2.priority()) {
+    if (e1.priority() != e2.priority())
         return e1.priority() < e2.priority();
-    }
     return e1.dateTime() < e2.dateTime();
 }

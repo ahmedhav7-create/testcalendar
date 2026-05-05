@@ -2715,6 +2715,7 @@
  mdp:/usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h
  mdp:/usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h
  mdp:/usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h
+/home/ahmed7/testcalendar/syncdialog.cpp
 /home/ahmed7/testcalendar/networkmanager.hpp
  mmc:Q_OBJECT
  mdp:/home/ahmed7/testcalendar/build/SmartPrioritizedCalendar_autogen/moc_predefs.h
@@ -4060,4 +4061,3 @@
  mdp:/usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h
  mdp:/usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h
  mdp:/usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h
-/home/ahmed7/testcalendar/syncdialog.cpp

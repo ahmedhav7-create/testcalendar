@@ -7,29 +7,32 @@ using namespace std;
 namespace asio = boost::asio;
 using tcp_ssl_socket = asio::ssl::stream<asio::ip::tcp::socket>;
 
-// ─── Quoted-Printable decoder ─────────────────────────────────────────────────
+// Quoted-Printable is an email encoding (RFC 2045) where special characters
+// are written as (hex). Long lines are split with a trailing = followed
+// by a newline, we rejoin those here so the text is readable again.
 static string decodeQuotedPrintable(const string& input) {
     string result;
     result.reserve(input.size());
     size_t i = 0;
     while (i < input.size()) {
         if (input[i] != '=') { result += input[i++]; continue; }
-        // Soft line break: =\n or =\r\n
-        if (i+1 < input.size() && input[i+1] == '\n')              { i += 2; continue; }
+        // Soft line break: the = at end of line means "continue on next line"
+        if (i+1 < input.size() && input[i+1] == '\n')                   { i += 2; continue; }
         if (i+2 < input.size() && input[i+1]=='\r' && input[i+2]=='\n') { i += 3; continue; }
-        // =XX hex byte
+        // =XX: two hex digits encoding one byte
         if (i+2 < input.size()
             && isxdigit((unsigned char)input[i+1])
             && isxdigit((unsigned char)input[i+2])) {
-            result += static_cast<char>(stoul(string{input[i+1],input[i+2]}, nullptr, 16));
+            result += static_cast<char>(stoul(string{input[i+1], input[i+2]}, nullptr, 16));
             i += 3; continue;
         }
-        result += input[i++]; // lone '='
+        result += input[i++];
     }
     return result;
 }
 
-// ─── MIME plain-text extractor ────────────────────────────────────────────────
+// Email messages have headers at the top, then a blank line, then the body.
+// This splits a raw message block at that blank line.
 static void splitHeadersBody(const string& block, string& headers, string& body) {
     size_t sep = block.find("\r\n\r\n");
     size_t sepLen = 4;
@@ -39,12 +42,13 @@ static void splitHeadersBody(const string& block, string& headers, string& body)
     body    = block.substr(sep + sepLen);
 }
 
+// Looks for a specific header field (e.g. "content-type") in the headers block.
 static string getHeader(const string& headers, const string& key) {
     istringstream ss(headers);
     string line, lkey = key;
     for (auto& c : lkey) c = tolower(c);
     while (getline(ss, line)) {
-        if (!line.empty() && line.back()=='\r') line.pop_back();
+        if (!line.empty() && line.back() == '\r') line.pop_back();
         string ll = line;
         for (auto& c : ll) c = tolower(c);
         if (ll.substr(0, lkey.size()) == lkey) {
@@ -56,6 +60,9 @@ static string getHeader(const string& headers, const string& key) {
     return "";
 }
 
+// Gmail sends emails as multipart/alternative, meaning the same message
+// appears twice in the raw data: once as text/plain and once as text/html.
+// We only want the plain-text part so our date regex can scan it cleanly.
 static string extractPlainText(const string& rawMessage) {
     string headers, body;
     splitHeadersBody(rawMessage, headers, body);
@@ -64,7 +71,7 @@ static string extractPlainText(const string& rawMessage) {
     string enc = getHeader(headers, "content-transfer-encoding");
     for (auto& c : enc) c = tolower(c);
 
-    // ── Non-multipart ──────────────────────────────────────────────────────────
+    // Simple (non-multipart) message
     if (ct.find("multipart") == string::npos) {
         if (ct.find("text/plain") == string::npos && !ct.empty()) return "";
         if (enc.find("quoted-printable") != string::npos) return decodeQuotedPrintable(body);
@@ -72,13 +79,14 @@ static string extractPlainText(const string& rawMessage) {
         return body;
     }
 
-    // ── Multipart: find boundary ───────────────────────────────────────────────
+    // Multipart message: parts are separated by a boundary string
+    // e.g. Content-Type: multipart/alternative; boundary="abc123"
     size_t bpos = ct.find("boundary=");
     if (bpos == string::npos) return "";
     string boundary = ct.substr(bpos + 9);
     if (!boundary.empty() && boundary.front() == '"')
         boundary = boundary.substr(1, boundary.find('"', 1) - 1);
-    while (!boundary.empty() && (isspace((unsigned char)boundary.back()) || boundary.back()==';'))
+    while (!boundary.empty() && (isspace((unsigned char)boundary.back()) || boundary.back() == ';'))
         boundary.pop_back();
 
     string delim = "--" + boundary;
@@ -87,7 +95,7 @@ static string extractPlainText(const string& rawMessage) {
 
     while ((pos = body.find(delim, pos)) != string::npos) {
         pos += delim.size();
-        if (pos < body.size() && body[pos] == '-') break;   // closing --boundary--
+        if (pos < body.size() && body[pos] == '-') break; // closing --boundary--
         if (pos < body.size() && body[pos] == '\r') pos++;
         if (pos < body.size() && body[pos] == '\n') pos++;
 
@@ -113,11 +121,8 @@ static string extractPlainText(const string& rawMessage) {
     return result;
 }
 
-// ─── Low-level IMAP helpers ───────────────────────────────────────────────────
-
-// Read one CRLF-terminated line from the socket, using buf as a carry buffer.
-// This does ONE read_until call per line — acceptable because these are short
-// protocol lines (not large data blocks).
+// Reads one CRLF-terminated IMAP protocol line from the socket.
+// buf holds leftover bytes from previous reads.
 static string readLine(tcp_ssl_socket& socket, string& buf) {
     asio::read_until(socket, asio::dynamic_buffer(buf), "\r\n");
     size_t pos = buf.find("\r\n");
@@ -126,26 +131,19 @@ static string readLine(tcp_ssl_socket& socket, string& buf) {
     return line;
 }
 
-// Read exactly n bytes in as few round-trips as possible using
-// asio::read() with transfer_exactly.  This is the key fix:
-// instead of calling read_until once per line inside the literal,
-// we do a single bulk read for the entire block.
+// Reads exactly n bytes from the socket in one bulk call (asio::transfer_exactly),
+// which is much faster than reading line-by-line for large email bodies.
 static string readExactly(tcp_ssl_socket& socket, string& buf, size_t n) {
-    // First drain what's already in buf
     if (buf.size() >= n) {
         string result = buf.substr(0, n);
         buf.erase(0, n);
         return result;
     }
-    // Need more bytes — read the remainder in one shot
     size_t already = buf.size();
     size_t need    = n - already;
-    buf.resize(n);   // make room
+    buf.resize(n);
     boost::system::error_code ec;
-    asio::read(socket,
-               asio::buffer(&buf[already], need),
-               asio::transfer_exactly(need),
-               ec);
+    asio::read(socket, asio::buffer(&buf[already], need), asio::transfer_exactly(need), ec);
     if (ec && ec != asio::error::eof)
         throw boost::system::system_error(ec);
     string result = buf.substr(0, n);
@@ -153,7 +151,8 @@ static string readExactly(tcp_ssl_socket& socket, string& buf, size_t n) {
     return result;
 }
 
-// Send a command and read lines until the tagged response is seen.
+// Sends an IMAP command and collects all response lines until the
+// tagged line (e.g. "A01 OK" or "A01 NO") is received.
 static vector<string> sendAndReceive(tcp_ssl_socket& socket,
                                      string& buf,
                                      const string& command,
@@ -169,12 +168,11 @@ static vector<string> sendAndReceive(tcp_ssl_socket& socket,
     return lines;
 }
 
-// ─── SyncWorker::doSync ───────────────────────────────────────────────────────
-
 SyncWorker::SyncWorker(QObject *parent) : QObject(parent) {}
 
 void SyncWorker::doSync(const QString& email, const QString& appPassword) {
     try {
+        // Set up a TLS-encrypted TCP connection to Gmail's IMAP server on port 993
         asio::io_context io_context;
         asio::ssl::context ssl_ctx(asio::ssl::context::tlsv12_client);
         ssl_ctx.set_default_verify_paths();
@@ -187,11 +185,9 @@ void SyncWorker::doSync(const QString& email, const QString& appPassword) {
         socket.handshake(asio::ssl::stream_base::client);
 
         string buf;
+        readLine(socket, buf); // discard server greeting
 
-        // Consume server greeting
-        readLine(socket, buf);
-
-        // LOGIN
+        // Authenticate
         string loginCmd = "A01 LOGIN " + email.toStdString()
                         + " " + appPassword.toStdString() + "\r\n";
         auto loginResp = sendAndReceive(socket, buf, loginCmd, "A01");
@@ -200,7 +196,7 @@ void SyncWorker::doSync(const QString& email, const QString& appPassword) {
             return;
         }
 
-        // SELECT INBOX
+        // Open the inbox and read how many messages it contains
         auto selectResp = sendAndReceive(socket, buf, "A02 SELECT INBOX\r\n", "A02");
         int totalMessages = 0;
         for (const auto& line : selectResp) {
@@ -217,7 +213,8 @@ void SyncWorker::doSync(const QString& email, const QString& appPassword) {
             return;
         }
 
-        // FETCH last 5 messages — full raw messages, without marking as read
+        // Fetch the last 5 messages. BODY.PEEK[] downloads the full raw message
+        // without marking emails as read.
         int startMsg = max(1, totalMessages - 4);
         string fetchCmd = "A03 FETCH " + to_string(startMsg) + ":"
                         + to_string(totalMessages) + " (BODY.PEEK[])\r\n";
@@ -227,31 +224,22 @@ void SyncWorker::doSync(const QString& email, const QString& appPassword) {
 
         while (true) {
             string line = readLine(socket, buf);
-
-            // Tagged response → FETCH is complete
             if (line.size() >= 3 && line.substr(0, 3) == "A03") break;
 
-            // Literal block: server announces it as {N} at end of line
+            // IMAP signals a large data block with {N} at the end of a line,
+            // meaning "the next N bytes are the message body".
             size_t braceOpen  = line.rfind('{');
             size_t braceClose = line.rfind('}');
-            if (braceOpen  != string::npos &&
-                braceClose != string::npos &&
-                braceClose  > braceOpen)
-            {
+            if (braceOpen != string::npos && braceClose != string::npos && braceClose > braceOpen) {
                 string sizeStr = line.substr(braceOpen + 1, braceClose - braceOpen - 1);
                 try {
                     size_t literalSize = stoul(sizeStr);
-
-                    // ── KEY FIX: read all N bytes in one bulk call ─────────────
-                    string rawMessage = readExactly(socket, buf, literalSize);
-
-                    string plainText = extractPlainText(rawMessage);
-                    if (!plainText.empty()) {
+                    string rawMessage  = readExactly(socket, buf, literalSize);
+                    string plainText   = extractPlainText(rawMessage);
+                    if (!plainText.empty())
                         allPlainText += QString::fromStdString(plainText) + "\n";
-                    }
                 } catch (...) {}
             }
-            // Other lines (FETCH metadata, closing parenthesis) are ignored
         }
 
         sendAndReceive(socket, buf, "A04 LOGOUT\r\n", "A04");
@@ -262,11 +250,10 @@ void SyncWorker::doSync(const QString& email, const QString& appPassword) {
     }
 }
 
-// ─── NetworkManager ──────────────────────────────────────────────────────────
-
 NetworkManager::NetworkManager(QObject *parent)
     : QObject(parent), m_isRunning(false)
 {
+    // Run the blocking IMAP code on a separate thread so the GUI stays responsive
     m_thread = new QThread(this);
     m_worker = new SyncWorker();
     m_worker->moveToThread(m_thread);
